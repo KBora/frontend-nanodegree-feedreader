@@ -115,7 +115,7 @@ $(function() {
 	     */
 
 	   var initialFeedContent = $('.feed').html();
-	   debugger;
+
 	   beforeEach(function(done) {
 
 			// load second feed and pass it a callback function
