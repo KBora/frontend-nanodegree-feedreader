@@ -92,14 +92,12 @@ $(function() {
 		beforeEach(function(done) {
 
 			// load first feed and pass it a callback function
-			loadFeed(0, function() {
-				done();
-			});
+			loadFeed(2, done);
 
 		});
 
 		it('contain at least a single entry in the feed container', function(done) {
-			var elements = ($('.feed').find( '.entry'));
+			var elements = ($('.feed').find('.entry'));
 			expect(elements.length).toBeGreaterThan(1);
 			done();
 		});
@@ -113,25 +111,29 @@ $(function() {
 	     * by the loadFeed function that the content actually changes.
 	     * Remember, loadFeed() is asynchronous.
 	     */
+		var entries_before = ''
 
-	   var initialFeedContent = $('.feed').html();
 
-	   beforeEach(function(done) {
+		beforeEach(function(done) {
+			// load a feed
+			loadFeed(3, function() {
+				// call back saves html and loads another feed
+				entries_before = $('.feed').find("h2").text();
+				done();
+				
+			});
+		});
 
-			// load second feed and pass it a callback function
+
+		it('content changes when loading a new feed', function(done) {
+			// compare feeds
 			loadFeed(1, function() {
+				var entries_after = $('.feed').find("h2").text();
+				expect(entries_before).not.toEqual(entries_after);
 				done();
 			});
-
+		
 		});
-
-		it('conent changes when loading a new feed', function(done) {
-			var newFeedContent = $('.feed').html();
-
-			expect(newFeedContent).not.toEqual(initialFeedContent);
-			done();
-		});
-
 
 	});
 
