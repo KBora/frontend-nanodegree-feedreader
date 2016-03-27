@@ -58,8 +58,7 @@ $(function() {
 		 * hiding/showing of the menu element.
 		 */
 		it('element is hidden by default', function() {
-			var classes = $('body').attr('class').split(' ');
-			expect(classes).toContain('menu-hidden');
+			expect($('body').hasClass('menu-hidden')).toEqual(true);
 		});
 
 		/* Ensure the menu changes
@@ -69,12 +68,10 @@ $(function() {
 		 */
 		it('changes visibility when menu icon is clicked', function() {
 			$('.menu-icon-link').trigger('click');
-			var classes = $('body').attr('class').split(' ');
-			expect(classes).not.toContain('menu-hidden');
+			expect($('body').hasClass('menu-hidden')).toEqual(false);
 
 			$('.menu-icon-link').trigger('click');
-			classes = $('body').attr('class').split(' ');
-			expect(classes).toContain('menu-hidden');
+			expect($('body').hasClass('menu-hidden')).toEqual(true);
 		});
 	});
 
@@ -96,10 +93,9 @@ $(function() {
 
 		});
 
-		it('contain at least a single entry in the feed container', function(done) {
+		it('contain at least a single entry in the feed container', function() {
 			var elements = ($('.feed').find('.entry'));
 			expect(elements.length).toBeGreaterThan(1);
-			done();
 		});
 
 	});
